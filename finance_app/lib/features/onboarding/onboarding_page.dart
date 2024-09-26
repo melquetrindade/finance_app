@@ -1,0 +1,89 @@
+import 'package:finance_app/common/constants/app_colos.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class OnboardingPage extends StatelessWidget {
+  const OnboardingPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Align(
+        child: Column(
+          children: [
+            SizedBox(height: 60.0),
+            Expanded(
+              flex: 2,
+              child: Container(
+                color: AppColors.iceWhite,
+                child: Image.asset('assets/images/man.png'),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'Gaste de forma mais inteligente',
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 36.0,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.greelightTwo),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'Economize mais',
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.greelightTwo),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: (){}, 
+              child: Text('Começar')
+            ),
+            Container(
+              width: double.infinity,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'Já tem conta? Conecte-se',
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.grey),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 40.0,)
+          ],
+        ),
+      ),
+    );
+  }
+}

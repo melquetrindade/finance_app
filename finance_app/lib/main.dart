@@ -1,5 +1,6 @@
+import 'package:finance_app/features/onboarding/onboarding_page.dart';
 import 'package:finance_app/features/splash/splash_page.dart';
-import 'package:finance_app/page/homePage.dart';
+//import 'package:finance_app/page/homePage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SplashPage()
+      home: OnboardingPage()
     );
   }
 }

@@ -19,6 +19,7 @@ class SplashPage extends StatelessWidget {
           ])
         ),
         child: Text('Finanças', style: TextStyle(
+          fontFamily: 'Inter',
           fontSize: 50,
           fontWeight: FontWeight.w700,
           color: Colors.white 
