@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:finance_app/common/constants/app_colos.dart';
+import 'package:finance_app/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -15,7 +18,6 @@ class OnboardingPage extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                color: AppColors.iceWhite,
                 child: Image.asset('assets/images/man.png'),
               ),
             ),
@@ -57,9 +59,14 @@ class OnboardingPage extends StatelessWidget {
                 ),
               ),
             ),
-            ElevatedButton(
-              onPressed: (){}, 
-              child: Text('Começar')
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: PrimaryButton(
+                text: 'Começar',
+                onPressed: () {
+                  print('Apertei');
+                },
+              ),
             ),
             Container(
               width: double.infinity,
@@ -80,7 +87,9 @@ class OnboardingPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 40.0,)
+            const SizedBox(
+              height: 40.0,
+            )
           ],
         ),
       ),
