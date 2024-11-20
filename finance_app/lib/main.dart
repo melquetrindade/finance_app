@@ -1,6 +1,4 @@
 import 'package:finance_app/features/onboarding/onboarding_page.dart';
-import 'package:finance_app/features/splash/splash_page.dart';
-//import 'package:finance_app/page/homePage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
