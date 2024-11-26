@@ -1,5 +1,6 @@
 //import 'dart:math';
 import 'package:finance_app/common/constants/app_colos.dart';
+import 'package:finance_app/widgets/multi_text_button.dart';
 import 'package:finance_app/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -59,7 +60,7 @@ class OnboardingPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.only(top: 24),
               child: PrimaryButton(
                 text: 'Começar',
                 onPressed: () {
@@ -73,16 +74,30 @@ class OnboardingPage extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'Já tem conta? Conecte-se',
-                      style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.grey),
-                    ),
-                  ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: MultiTextButton(
+                        childrenTxt: [
+                          Text(
+                            'Já tem conta? ',
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.grey),
+                          ),
+                          Text(
+                            'Conecte-se',
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.greelightTwo),
+                          )
+                        ],
+                        onPressed: () {
+                          print('cliquei no text button');
+                        },
+                      )),
                 ),
               ),
             ),
