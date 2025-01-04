@@ -60,16 +60,30 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomTextField(
-                          textEditingController: name,
-                          textInputType: TextInputType.name,
-                          hintText: "Maria Benedita",
-                          labelText: "Nome"),
+                        textEditingController: name,
+                        textInputType: TextInputType.name,
+                        hintText: "Maria Benedita",
+                        labelText: "Nome",
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Informe o nome corretamente!";
+                          }
+                          return null;
+                        },
+                      ),
                       CustomTextField(
-                          textEditingController: email,
-                          textInputType: TextInputType.emailAddress,
-                          hintText: "mariabenedita@gmail.com",
-                          labelText: "Email",
-                          textCapitalization: TextCapitalization.none),
+                        textEditingController: email,
+                        textInputType: TextInputType.emailAddress,
+                        hintText: "mariabenedita@gmail.com",
+                        labelText: "Email",
+                        textCapitalization: TextCapitalization.none,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Informe o e-mail corretamente!";
+                          }
+                          return null;
+                        },
+                      ),
                       CustomTextField(
                         obscureText: password,
                         textEditingController: passwordController,
@@ -77,6 +91,7 @@ class _SignUpState extends State<SignUp> {
                         hintText: "********",
                         labelText: "Senha",
                         textCapitalization: TextCapitalization.none,
+                        helperText: "Deve ter pelo menos 8 caracteres, 1 letra maiúscula e 1 número",
                         suffixIcon: InkWell(
                             onTap: () {
                               print("Trocar Incon de senha");
@@ -87,24 +102,41 @@ class _SignUpState extends State<SignUp> {
                             child: password == true
                                 ? Icon(Icons.visibility)
                                 : Icon(Icons.visibility_off)),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Informe sua senha!";
+                          } else if (value.length < 8) {
+                            return "Sua senha deve ter no mínimo 8 caracteres!";
+                          }
+                          return null;
+                        },
                       ),
                       CustomTextField(
-                          obscureText: password2,
-                          textEditingController: passwordController2,
-                          textInputType: TextInputType.visiblePassword,
-                          hintText: "********",
-                          labelText: "Confirme a senha",
-                          textCapitalization: TextCapitalization.none,
-                          suffixIcon: InkWell(
-                              onTap: () {
-                                print("Trocar Incon de confirmar senha");
-                                setState(() {
-                                  password2 = !password2;
-                                });
-                              },
-                              child: password2 == true
-                                  ? Icon(Icons.visibility)
-                                  : Icon(Icons.visibility_off))),
+                        obscureText: password2,
+                        textEditingController: passwordController2,
+                        textInputType: TextInputType.visiblePassword,
+                        hintText: "********",
+                        labelText: "Confirme a senha",
+                        textCapitalization: TextCapitalization.none,
+                        suffixIcon: InkWell(
+                            onTap: () {
+                              print("Trocar Incon de confirmar senha");
+                              setState(() {
+                                password2 = !password2;
+                              });
+                            },
+                            child: password2 == true
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off)),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Confirme sua senha!";
+                          } else if (value.length < 8) {
+                            return "Sua senha deve ter no mínimo 8 caracteres!";
+                          }
+                          return null;
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -113,7 +145,11 @@ class _SignUpState extends State<SignUp> {
                   child: PrimaryButton(
                     text: 'Increva-se',
                     onPressed: () {
-                      print('Cliquei no Sign Up');
+                      if (formKey.currentState!.validate()) {
+                        print('prosseguir com o cadastro');
+                      } else {
+                        print('não processeguir');
+                      }
                     },
                   ),
                 ),
@@ -147,36 +183,3 @@ class _SignUpState extends State<SignUp> {
     ));
   }
 }
-
-
-/*
-
-Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 14, vertical: 12),
-                        child: TextFormField(
-                          controller: name,
-                          textCapitalization: TextCapitalization.words,
-                          keyboardType: TextInputType.name,
-                          decoration: InputDecoration(
-                              hintText: "Maria Benedita",
-                              hintStyle: TextStyle(
-                                color: const Color.fromARGB(255, 81, 81, 81),
-                              ),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              labelText: "Nome".toUpperCase(),
-                              labelStyle: TextStyle(
-                                  color: const Color.fromARGB(255, 81, 81, 81),
-                                  fontWeight: FontWeight.w400),
-                              border: OutlineInputBorder(),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: AppColors.greelightOne, width: 2)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: AppColors.greelightOne,
-                                      width: 2))),
-                        ),
-                      ),
- */
