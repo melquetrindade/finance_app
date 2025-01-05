@@ -1,4 +1,5 @@
 import 'package:finance_app/common/constants/app_colos.dart';
+import 'package:finance_app/utils/validator.dart';
 import 'package:finance_app/widgets/custom_text_field.dart';
 import 'package:finance_app/widgets/multi_text_button.dart';
 import 'package:finance_app/widgets/primary_button.dart';
@@ -64,12 +65,7 @@ class _SignUpState extends State<SignUp> {
                         textInputType: TextInputType.name,
                         hintText: "Maria Benedita",
                         labelText: "Nome",
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Informe o nome corretamente!";
-                          }
-                          return null;
-                        },
+                        validator: Validator.validatorName,
                       ),
                       CustomTextField(
                         textEditingController: email,
@@ -77,12 +73,7 @@ class _SignUpState extends State<SignUp> {
                         hintText: "mariabenedita@gmail.com",
                         labelText: "Email",
                         textCapitalization: TextCapitalization.none,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Informe o e-mail corretamente!";
-                          }
-                          return null;
-                        },
+                        validator: Validator.validatorEmail,
                       ),
                       CustomTextField(
                         obscureText: password,
