@@ -60,6 +60,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             widget.textCapitalization ?? TextCapitalization.words,
         keyboardType: widget.textInputType,
         decoration: InputDecoration(
+            errorMaxLines: 3,
             helperText: _helperText,
             helperMaxLines: 3,
             hintText: widget.hintText,

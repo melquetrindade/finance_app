@@ -83,24 +83,8 @@ class _SignUpState extends State<SignUp> {
                         labelText: "Senha",
                         textCapitalization: TextCapitalization.none,
                         helperText: "Deve ter pelo menos 8 caracteres, 1 letra maiúscula e 1 número",
-                        suffixIcon: InkWell(
-                            onTap: () {
-                              print("Trocar Incon de senha");
-                              setState(() {
-                                password = !password;
-                              });
-                            },
-                            child: password == true
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off)),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Informe sua senha!";
-                          } else if (value.length < 8) {
-                            return "Sua senha deve ter no mínimo 8 caracteres!";
-                          }
-                          return null;
-                        },
+                        suffixIcon: inkWellSenha(),
+                        validator: Validator.validatorSenha,
                       ),
                       CustomTextField(
                         obscureText: password2,
@@ -109,24 +93,8 @@ class _SignUpState extends State<SignUp> {
                         hintText: "********",
                         labelText: "Confirme a senha",
                         textCapitalization: TextCapitalization.none,
-                        suffixIcon: InkWell(
-                            onTap: () {
-                              print("Trocar Incon de confirmar senha");
-                              setState(() {
-                                password2 = !password2;
-                              });
-                            },
-                            child: password2 == true
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off)),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Confirme sua senha!";
-                          } else if (value.length < 8) {
-                            return "Sua senha deve ter no mínimo 8 caracteres!";
-                          }
-                          return null;
-                        },
+                        suffixIcon: inkWellConfirmeSenha(),
+                        validator: (value) => Validator.validatorConfirmeSenha(value, passwordController.text),
                       ),
                     ],
                   ),
@@ -172,5 +140,31 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     ));
+  }
+
+  InkWell inkWellConfirmeSenha() {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          password2 = !password2;
+        });
+      },
+      child: password2 == true
+          ? Icon(Icons.visibility)
+          : Icon(Icons.visibility_off)
+    );
+  }
+
+  InkWell inkWellSenha() {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          password = !password;
+        });
+      },
+      child: password == true
+          ? Icon(Icons.visibility)
+          : Icon(Icons.visibility_off)
+    );
   }
 }
