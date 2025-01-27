@@ -1,9 +1,12 @@
 import 'package:finance_app/common/constants/app_colos.dart';
+import 'package:finance_app/features/sign_up/sign_up_controller.dart';
+import 'package:finance_app/features/sign_up/sign_up_state.dart';
 import 'package:finance_app/utils/validator.dart';
 import 'package:finance_app/widgets/custom_text_field.dart';
 import 'package:finance_app/widgets/multi_text_button.dart';
 import 'package:finance_app/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -13,6 +16,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  late SignUpController signUpController;
+
   final formKey = GlobalKey<FormState>();
   final name = TextEditingController();
   final email = TextEditingController();
@@ -24,6 +29,19 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    signUpController = context.watch<SignUpController>();
+
+    if (signUpController.state is SignUpLoadingState) {
+      /*
+      showDialog(
+          context: context,
+          builder: (context) => Center(
+                child: CircularProgressIndicator(),
+              ));*/
+
+      print("tela de loading");
+    }
+
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.only(top: 25),
@@ -82,7 +100,8 @@ class _SignUpState extends State<SignUp> {
                         hintText: "********",
                         labelText: "Senha",
                         textCapitalization: TextCapitalization.none,
-                        helperText: "Deve ter pelo menos 8 caracteres, 1 letra maiúscula e 1 número",
+                        helperText:
+                            "Deve ter pelo menos 8 caracteres, 1 letra maiúscula e 1 número",
                         suffixIcon: inkWellSenha(),
                         validator: Validator.validatorSenha,
                       ),
@@ -94,7 +113,8 @@ class _SignUpState extends State<SignUp> {
                         labelText: "Confirme a senha",
                         textCapitalization: TextCapitalization.none,
                         suffixIcon: inkWellConfirmeSenha(),
-                        validator: (value) => Validator.validatorConfirmeSenha(value, passwordController.text),
+                        validator: (value) => Validator.validatorConfirmeSenha(
+                            value, passwordController.text),
                       ),
                     ],
                   ),
@@ -106,6 +126,7 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         print('prosseguir com o cadastro');
+                        signUpController.doSignUp();
                       } else {
                         print('não processeguir');
                       }
@@ -144,27 +165,25 @@ class _SignUpState extends State<SignUp> {
 
   InkWell inkWellConfirmeSenha() {
     return InkWell(
-      onTap: () {
-        setState(() {
-          password2 = !password2;
-        });
-      },
-      child: password2 == true
-          ? Icon(Icons.visibility)
-          : Icon(Icons.visibility_off)
-    );
+        onTap: () {
+          setState(() {
+            password2 = !password2;
+          });
+        },
+        child: password2 == true
+            ? Icon(Icons.visibility)
+            : Icon(Icons.visibility_off));
   }
 
   InkWell inkWellSenha() {
     return InkWell(
-      onTap: () {
-        setState(() {
-          password = !password;
-        });
-      },
-      child: password == true
-          ? Icon(Icons.visibility)
-          : Icon(Icons.visibility_off)
-    );
+        onTap: () {
+          setState(() {
+            password = !password;
+          });
+        },
+        child: password == true
+            ? Icon(Icons.visibility)
+            : Icon(Icons.visibility_off));
   }
 }

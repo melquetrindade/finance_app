@@ -1,9 +1,13 @@
 //import 'package:finance_app/features/onboarding/onboarding_page.dart';
+import 'package:finance_app/features/sign_up/sign_up_controller.dart';
 import 'package:finance_app/features/sign_up/sign_up_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(create: (context) => SignUpController(),
+  child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
