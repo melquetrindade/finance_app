@@ -15,7 +15,7 @@ class SignUpController extends ChangeNotifier {
     _changeState(SignUpLoadingState());
     await Future.delayed(const Duration(seconds: 2));
     print("Usuário logado");
-    _changeState(SignUpSuccessState());
+    _changeState(SignUpErrorState());
     return true;
   }
 }

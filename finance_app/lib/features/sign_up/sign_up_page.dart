@@ -28,19 +28,70 @@ class _SignUpState extends State<SignUp> {
   bool password2 = true;
 
   @override
+  void initState() {
+    super.initState();
+    signUpController = context.read<SignUpController>();
+
+    signUpController.addListener(() {
+      if (signUpController.state is SignUpLoadingState) {
+        _myShowDialog();
+      }
+      if (signUpController.state is SignUpSuccessState) {
+        Navigator.of(context).pop();
+      }
+      if (signUpController.state is SignUpErrorState) {
+        _myShowModalBottomSheet();
+      }
+    });
+  }
+
+  void _myShowModalBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(38), topRight: Radius.circular(38)),
+        ),
+        builder: (BuildContext) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(38), topRight: Radius.circular(38)),
+            ),
+            height: 200,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text("Ops. Algo deu errado"),
+                  PrimaryButton(
+                    text: "Tente Novamente", 
+                    onPressed: () => Navigator.pop(context),)
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  void _myShowDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          });
+        });
+  }
+
+  @override
   Widget build(BuildContext context) {
     signUpController = context.watch<SignUpController>();
-
-    if (signUpController.state is SignUpLoadingState) {
-      /*
-      showDialog(
-          context: context,
-          builder: (context) => Center(
-                child: CircularProgressIndicator(),
-              ));*/
-
-      print("tela de loading");
-    }
 
     return Scaffold(
         body: Padding(
@@ -128,6 +179,7 @@ class _SignUpState extends State<SignUp> {
                         print('prosseguir com o cadastro');
                         signUpController.doSignUp();
                       } else {
+                        signUpController.doSignUp();
                         print('não processeguir');
                       }
                     },
