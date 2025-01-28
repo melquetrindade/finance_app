@@ -40,6 +40,7 @@ class _SignUpState extends State<SignUp> {
         Navigator.of(context).pop();
       }
       if (signUpController.state is SignUpErrorState) {
+        Navigator.of(context).pop();
         _myShowModalBottomSheet();
       }
     });
@@ -65,10 +66,25 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text("Ops. Algo deu errado"),
-                  PrimaryButton(
-                    text: "Tente Novamente", 
-                    onPressed: () => Navigator.pop(context),)
+                  const Text(
+                    "Ops. Algo deu errado",
+                    style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.greelightTwo),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 16),
+                    child: PrimaryButton(
+                      text: "Tente Novamente",
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        //signUpController.doSignUpInitial();
+                      },
+                    ),
+                  )
                 ],
               ),
             ),
@@ -80,12 +96,11 @@ class _SignUpState extends State<SignUp> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          });
+          return Center(
+            child: CircularProgressIndicator(
+              color: AppColors.iceWhite,
+            ),
+          );
         });
   }
 
@@ -179,8 +194,8 @@ class _SignUpState extends State<SignUp> {
                         print('prosseguir com o cadastro');
                         signUpController.doSignUp();
                       } else {
-                        signUpController.doSignUp();
                         print('não processeguir');
+                        signUpController.doSignUpError();
                       }
                     },
                   ),
