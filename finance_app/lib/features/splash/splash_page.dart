@@ -1,8 +1,31 @@
+import 'dart:async';
+
 import 'package:finance_app/common/constants/app_colos.dart';
+import 'package:finance_app/features/onboarding/onboarding_page.dart';
 import 'package:flutter/material.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  Timer init() {
+    return Timer(Duration(seconds: 2), navigateToOnboarding);
+  }
+
+  void navigateToOnboarding() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => OnboardingPage()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,20 +33,26 @@ class SplashPage extends StatelessWidget {
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-            AppColors.greelightOne,
-            AppColors.greelightTwo
-          ])
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.greelightOne, AppColors.greelightTwo])),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Finanças',
+              style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 50,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white),
+            ),
+            CircularProgressIndicator(
+              color: AppColors.iceWhite,
+            )
+          ],
         ),
-        child: Text('Finanças', style: TextStyle(
-          fontFamily: 'Inter',
-          fontSize: 50,
-          fontWeight: FontWeight.w700,
-          color: Colors.white 
-        ),),
       ),
     );
   }
