@@ -28,6 +28,15 @@ class _SignUpState extends State<SignUp> {
   bool password2 = true;
 
   @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    passwordController.dispose();
+    passwordController2.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     signUpController = context.read<SignUpController>();
@@ -40,13 +49,15 @@ class _SignUpState extends State<SignUp> {
         Navigator.of(context).pop();
       }
       if (signUpController.state is SignUpErrorState) {
+        final error = signUpController.state as SignUpErrorState;
         Navigator.of(context).pop();
-        _myShowModalBottomSheet();
+
+        _myShowModalBottomSheet(error.message);
       }
     });
   }
 
-  void _myShowModalBottomSheet() {
+  void _myShowModalBottomSheet(String messageError) {
     showModalBottomSheet(
         context: context,
         shape: RoundedRectangleBorder(
@@ -62,30 +73,28 @@ class _SignUpState extends State<SignUp> {
             ),
             height: 200,
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    "Ops. Algo deu errado",
-                    style: TextStyle(
-                        fontFamily: "Inter",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.greelightTwo),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 16),
-                    child: PrimaryButton(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(messageError,
+                      style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.greelightTwo),
+                    ),
+                    PrimaryButton(
                       text: "Tente Novamente",
                       onPressed: () {
                         Navigator.of(context).pop();
                         //signUpController.doSignUpInitial();
                       },
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           );
@@ -192,10 +201,13 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         print('prosseguir com o cadastro');
-                        signUpController.doSignUp();
+                        signUpController.signUp(
+                            name: name.text,
+                            email: email.text,
+                            password: passwordController.text);
                       } else {
                         print('não processeguir');
-                        signUpController.doSignUpError();
+                        //signUpController.doSignUpError();
                       }
                     },
                   ),
