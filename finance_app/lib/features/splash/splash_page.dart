@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:finance_app/common/constants/app_colos.dart';
-import 'package:finance_app/features/onboarding/onboarding_page.dart';
+import 'package:finance_app/common/constants/routes.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -23,8 +22,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void navigateToOnboarding() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => OnboardingPage()));
+    Navigator.pushReplacementNamed(
+        context, NamedRoute.initial);
   }
 
   @override

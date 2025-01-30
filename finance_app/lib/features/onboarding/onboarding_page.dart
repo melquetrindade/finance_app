@@ -1,6 +1,5 @@
-//import 'dart:math';
 import 'package:finance_app/common/constants/app_colos.dart';
-import 'package:finance_app/features/sign_up/sign_up_page.dart';
+import 'package:finance_app/common/constants/routes.dart';
 import 'package:finance_app/widgets/multi_text_button.dart';
 import 'package:finance_app/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
@@ -64,8 +63,7 @@ class OnboardingPage extends StatelessWidget {
                 child: PrimaryButton(
                   text: 'Começar',
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SignUp()));
+                    Navigator.pushReplacementNamed(context, NamedRoute.signUp);
                   },
                 ),
               ),

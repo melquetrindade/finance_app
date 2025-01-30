@@ -1,5 +1,8 @@
 //import 'package:finance_app/features/onboarding/onboarding_page.dart';
+import 'package:finance_app/common/constants/routes.dart';
+import 'package:finance_app/features/onboarding/onboarding_page.dart';
 import 'package:finance_app/features/sign_up/sign_up_controller.dart';
+import 'package:finance_app/features/sign_up/sign_up_page.dart';
 //import 'package:finance_app/features/sign_up/sign_up_page.dart';
 import 'package:finance_app/features/splash/splash_page.dart';
 import 'package:finance_app/services/mock_auth_service.dart';
@@ -24,7 +27,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SplashPage()
+      initialRoute: NamedRoute.splash,
+      routes: {
+        NamedRoute.initial: (context) => const OnboardingPage(),
+        NamedRoute.splash: (context) => const SplashPage(),
+        NamedRoute.signUp: (context) => const SignUp()
+      },
     );
   }
 }
