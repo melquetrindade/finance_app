@@ -1,7 +1,7 @@
 import 'package:finance_app/common/constants/app_colos.dart';
 import 'package:finance_app/common/constants/routes.dart';
-import 'package:finance_app/features/sign_up/sign_up_controller.dart';
-import 'package:finance_app/features/sign_up/sign_up_state.dart';
+import 'package:finance_app/features/sign_in/sigan_in_state.dart';
+import 'package:finance_app/features/sign_in/sign_in_controller.dart';
 import 'package:finance_app/utils/validator.dart';
 import 'package:finance_app/widgets/custom_text_field.dart';
 import 'package:finance_app/widgets/multi_text_button.dart';
@@ -9,48 +9,43 @@ import 'package:finance_app/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _SignUpState extends State<SignUp> {
-  late SignUpController signUpController;
+class _SignInState extends State<SignIn> {
+  late SignInController signInController;
 
   final formKey = GlobalKey<FormState>();
-  final name = TextEditingController();
   final email = TextEditingController();
   final passwordController = TextEditingController();
-  final passwordController2 = TextEditingController();
 
   bool password = true;
-  bool password2 = true;
 
   @override
   void dispose() {
-    name.dispose();
     email.dispose();
     passwordController.dispose();
-    passwordController2.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    signUpController = context.read<SignUpController>();
+    signInController = context.read<SignInController>();
 
-    signUpController.addListener(() {
-      if (signUpController.state is SignUpLoadingState) {
+    signInController.addListener(() {
+      if (signInController.state is SignInLoadingState) {
         _myShowDialog();
       }
-      if (signUpController.state is SignUpSuccessState) {
+      if (signInController.state is SignInSuccessState) {
         Navigator.of(context).pop();
       }
-      if (signUpController.state is SignUpErrorState) {
-        final error = signUpController.state as SignUpErrorState;
+      if (signInController.state is SignInErrorState) {
+        final error = signInController.state as SignInErrorState;
         Navigator.of(context).pop();
 
         _myShowModalBottomSheet(error.message);
@@ -91,7 +86,6 @@ class _SignUpState extends State<SignUp> {
                       text: "Tente Novamente",
                       onPressed: () {
                         Navigator.of(context).pop();
-                        //signUpController.doSignUpInitial();
                       },
                     )
                   ],
@@ -116,7 +110,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    signUpController = context.watch<SignUpController>();
+    signInController = context.watch<SignInController>();
 
     return Scaffold(
         body: Padding(
@@ -130,15 +124,7 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Gaste de forma',
-                  style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 36.0,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.greelightTwo),
-                ),
-                Text(
-                  'mais inteligente',
+                  'Bem vindo de volta',
                   style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 36.0,
@@ -154,13 +140,6 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomTextField(
-                        textEditingController: name,
-                        textInputType: TextInputType.name,
-                        hintText: "Maria Benedita",
-                        labelText: "Nome",
-                        validator: Validator.validatorName,
-                      ),
                       CustomTextField(
                         textEditingController: email,
                         textInputType: TextInputType.emailAddress,
@@ -181,34 +160,21 @@ class _SignUpState extends State<SignUp> {
                         suffixIcon: inkWellSenha(),
                         validator: Validator.validatorSenha,
                       ),
-                      CustomTextField(
-                        obscureText: password2,
-                        textEditingController: passwordController2,
-                        textInputType: TextInputType.visiblePassword,
-                        hintText: "********",
-                        labelText: "Confirme a senha",
-                        textCapitalization: TextCapitalization.none,
-                        suffixIcon: inkWellConfirmeSenha(),
-                        validator: (value) => Validator.validatorConfirmeSenha(
-                            value, passwordController.text),
-                      ),
                     ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: PrimaryButton(
-                    text: 'Increva-se',
+                    text: 'Entrar',
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         print('prosseguir com o cadastro');
-                        signUpController.signUp(
-                            name: name.text,
+                        signInController.signIn(
                             email: email.text,
                             password: passwordController.text);
                       } else {
                         print('não processeguir');
-                        //signUpController.doSignUpError();
                       }
                     },
                   ),
@@ -216,7 +182,7 @@ class _SignUpState extends State<SignUp> {
                 MultiTextButton(
                     childrenTxt: [
                       Text(
-                        'Já tem conta? ',
+                        'Não tenho conta? ',
                         style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 16.0,
@@ -224,7 +190,7 @@ class _SignUpState extends State<SignUp> {
                             color: AppColors.grey),
                       ),
                       Text(
-                        'Entrar',
+                        'Inscrever-se',
                         style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 16.0,
@@ -232,25 +198,13 @@ class _SignUpState extends State<SignUp> {
                             color: AppColors.greelightTwo),
                       ),
                     ],
-                    onPressed: () => Navigator.popAndPushNamed(context, NamedRoute.signIn))
+                    onPressed: () => Navigator.popAndPushNamed(context, NamedRoute.signUp))
               ],
             ),
           ),
         ),
       ),
     ));
-  }
-
-  InkWell inkWellConfirmeSenha() {
-    return InkWell(
-        onTap: () {
-          setState(() {
-            password2 = !password2;
-          });
-        },
-        child: password2 == true
-            ? Icon(Icons.visibility)
-            : Icon(Icons.visibility_off));
   }
 
   InkWell inkWellSenha() {

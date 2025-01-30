@@ -63,7 +63,7 @@ class OnboardingPage extends StatelessWidget {
                 child: PrimaryButton(
                   text: 'Começar',
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, NamedRoute.signUp);
+                    Navigator.pushNamed(context, NamedRoute.signUp);
                   },
                 ),
               ),
@@ -93,9 +93,7 @@ class OnboardingPage extends StatelessWidget {
                                   color: AppColors.greelightTwo),
                             )
                           ],
-                          onPressed: () {
-                            print('cliquei no text button');
-                          },
+                          onPressed: () => Navigator.pushNamed(context, NamedRoute.signIn),
                         )),
                   ),
                 ),

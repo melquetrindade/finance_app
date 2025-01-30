@@ -1,6 +1,8 @@
 //import 'package:finance_app/features/onboarding/onboarding_page.dart';
 import 'package:finance_app/common/constants/routes.dart';
 import 'package:finance_app/features/onboarding/onboarding_page.dart';
+import 'package:finance_app/features/sign_in/sign_in_controller.dart';
+import 'package:finance_app/features/sign_in/sign_in_page.dart';
 import 'package:finance_app/features/sign_up/sign_up_controller.dart';
 import 'package:finance_app/features/sign_up/sign_up_page.dart';
 //import 'package:finance_app/features/sign_up/sign_up_page.dart';
@@ -10,9 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(create: (context) => SignUpController(service: MockAuthService()),
-  child: MyApp(),
-  ));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => SignUpController(service: MockAuthService())),
+    ChangeNotifierProvider(create: (context) => SignInController(service: MockAuthService())),
+  ], child: MyApp(),));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +34,8 @@ class MyApp extends StatelessWidget {
       routes: {
         NamedRoute.initial: (context) => const OnboardingPage(),
         NamedRoute.splash: (context) => const SplashPage(),
-        NamedRoute.signUp: (context) => const SignUp()
+        NamedRoute.signUp: (context) => const SignUp(),
+        NamedRoute.signIn: (context) => const SignIn()
       },
     );
   }

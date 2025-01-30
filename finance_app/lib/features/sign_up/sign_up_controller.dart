@@ -26,12 +26,4 @@ class SignUpController extends ChangeNotifier {
       _changeState(SignUpErrorState(message: e.toString()));
     }
   }
-
-  /*
-  Future<bool> doSignUpError() async {
-    _changeState(SignUpLoadingState());
-    await Future.delayed(const Duration(seconds: 2));
-    _changeState(SignUpErrorState());
-    return false;
-  }*/
 }
