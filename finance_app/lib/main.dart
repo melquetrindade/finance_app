@@ -7,12 +7,19 @@ import 'package:finance_app/features/sign_in/sign_in_page.dart';
 import 'package:finance_app/features/sign_up/sign_up_page.dart';
 //import 'package:finance_app/features/sign_up/sign_up_page.dart';
 import 'package:finance_app/features/splash/splash_page.dart';
+import 'package:finance_app/firebase_options.dart';
 import 'package:finance_app/locator.dart';
 //import 'package:finance_app/services/mock_auth_service.dart';
 import 'package:flutter/material.dart';
 //import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   setup();
   runApp(const MyApp());
 }
