@@ -1,13 +1,15 @@
 import 'package:finance_app/common/constants/app_colos.dart';
 import 'package:finance_app/common/constants/routes.dart';
 import 'package:finance_app/features/sign_up/sign_up_controller.dart';
+//import 'package:finance_app/features/sign_up/sign_up_controller.dart';
 import 'package:finance_app/features/sign_up/sign_up_state.dart';
+import 'package:finance_app/locator.dart';
 import 'package:finance_app/utils/validator.dart';
 import 'package:finance_app/widgets/custom_text_field.dart';
 import 'package:finance_app/widgets/multi_text_button.dart';
 import 'package:finance_app/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+//import 'package:provider/provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -17,7 +19,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  late SignUpController signUpController;
+  final signUpController = locator.get<SignUpController>();
 
   final formKey = GlobalKey<FormState>();
   final name = TextEditingController();
@@ -36,11 +38,10 @@ class _SignUpState extends State<SignUp> {
     passwordController2.dispose();
     super.dispose();
   }
-
+  
   @override
   void initState() {
     super.initState();
-    signUpController = context.read<SignUpController>();
 
     signUpController.addListener(() {
       if (signUpController.state is SignUpLoadingState) {
@@ -75,12 +76,14 @@ class _SignUpState extends State<SignUp> {
             height: 200,
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(messageError,
+                    Text(
+                      messageError,
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 20,
@@ -91,7 +94,6 @@ class _SignUpState extends State<SignUp> {
                       text: "Tente Novamente",
                       onPressed: () {
                         Navigator.of(context).pop();
-                        //signUpController.doSignUpInitial();
                       },
                     )
                   ],
@@ -116,8 +118,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    signUpController = context.watch<SignUpController>();
-
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.only(top: 25),
@@ -232,7 +232,8 @@ class _SignUpState extends State<SignUp> {
                             color: AppColors.greelightTwo),
                       ),
                     ],
-                    onPressed: () => Navigator.popAndPushNamed(context, NamedRoute.signIn))
+                    onPressed: () =>
+                        Navigator.popAndPushNamed(context, NamedRoute.signIn))
               ],
             ),
           ),

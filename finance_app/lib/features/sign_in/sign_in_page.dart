@@ -2,12 +2,12 @@ import 'package:finance_app/common/constants/app_colos.dart';
 import 'package:finance_app/common/constants/routes.dart';
 import 'package:finance_app/features/sign_in/sigan_in_state.dart';
 import 'package:finance_app/features/sign_in/sign_in_controller.dart';
+import 'package:finance_app/locator.dart';
 import 'package:finance_app/utils/validator.dart';
 import 'package:finance_app/widgets/custom_text_field.dart';
 import 'package:finance_app/widgets/multi_text_button.dart';
 import 'package:finance_app/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -17,7 +17,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  late SignInController signInController;
+  final signInController = locator.get<SignInController>();
 
   final formKey = GlobalKey<FormState>();
   final email = TextEditingController();
@@ -35,7 +35,6 @@ class _SignInState extends State<SignIn> {
   @override
   void initState() {
     super.initState();
-    signInController = context.read<SignInController>();
 
     signInController.addListener(() {
       if (signInController.state is SignInLoadingState) {
@@ -110,7 +109,6 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    signInController = context.watch<SignInController>();
 
     return Scaffold(
         body: Padding(
