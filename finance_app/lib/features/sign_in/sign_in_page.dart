@@ -41,6 +41,7 @@ class _SignInState extends State<SignIn> {
         _myShowDialog();
       }
       if (signInController.state is SignInSuccessState) {
+        print("Entrar na tela de início");
         Navigator.of(context).pop();
       }
       if (signInController.state is SignInErrorState) {
@@ -69,12 +70,14 @@ class _SignInState extends State<SignIn> {
             height: 200,
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(messageError,
+                    Text(
+                      messageError,
                       style: TextStyle(
                           fontFamily: "Inter",
                           fontSize: 20,
@@ -109,7 +112,6 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.only(top: 25),
@@ -196,7 +198,8 @@ class _SignInState extends State<SignIn> {
                             color: AppColors.greelightTwo),
                       ),
                     ],
-                    onPressed: () => Navigator.popAndPushNamed(context, NamedRoute.signUp))
+                    onPressed: () =>
+                        Navigator.popAndPushNamed(context, NamedRoute.signUp))
               ],
             ),
           ),
