@@ -1,6 +1,10 @@
 import 'dart:async';
+
 import 'package:finance_app/common/constants/app_colos.dart';
 import 'package:finance_app/common/constants/routes.dart';
+import 'package:finance_app/features/splash/splash_controller.dart';
+import 'package:finance_app/features/splash/splash_state.dart';
+import 'package:finance_app/locator.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -11,20 +15,36 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final _splashController = locator.get<SplashController>();
+
   @override
   void initState() {
-    init();
+    
+    _splashController.isUserLogged();
+    _splashController.addListener(() {
+      if (_splashController.state is SplashSuccessState) {
+        print("navegar para a tela de home");
+      } else {
+        print("tela de onboarding");
+      }
+    });
+    //init();
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _splashController.dispose();
+    super.dispose();
+  }
+  /*
   Timer init() {
     return Timer(Duration(seconds: 2), navigateToOnboarding);
   }
 
   void navigateToOnboarding() {
-    Navigator.pushReplacementNamed(
-        context, NamedRoute.initial);
-  }
+    Navigator.pushReplacementNamed(context, NamedRoute.initial);
+  }*/
 
   @override
   Widget build(BuildContext context) {
