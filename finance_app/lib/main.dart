@@ -1,5 +1,6 @@
 //import 'package:finance_app/features/onboarding/onboarding_page.dart';
 import 'package:finance_app/common/constants/routes.dart';
+import 'package:finance_app/features/home/home_page.dart';
 import 'package:finance_app/features/onboarding/onboarding_page.dart';
 //import 'package:finance_app/features/sign_in/sign_in_controller.dart';
 import 'package:finance_app/features/sign_in/sign_in_page.dart';
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
         NamedRoute.initial: (context) => const OnboardingPage(),
         NamedRoute.splash: (context) => const SplashPage(),
         NamedRoute.signUp: (context) => const SignUp(),
-        NamedRoute.signIn: (context) => const SignIn()
+        NamedRoute.signIn: (context) => const SignIn(),
+        NamedRoute.home: (context) => const HomePage()
       },
     );
   }

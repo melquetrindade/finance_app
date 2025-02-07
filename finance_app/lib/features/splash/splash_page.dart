@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:finance_app/common/constants/app_colos.dart';
 import 'package:finance_app/common/constants/routes.dart';
 import 'package:finance_app/features/splash/splash_controller.dart';
@@ -23,9 +21,9 @@ class _SplashPageState extends State<SplashPage> {
     _splashController.isUserLogged();
     _splashController.addListener(() {
       if (_splashController.state is SplashSuccessState) {
-        print("navegar para a tela de home");
+        Navigator.pushReplacementNamed(context, NamedRoute.home);
       } else {
-        print("tela de onboarding");
+        Navigator.pushReplacementNamed(context, NamedRoute.initial);
       }
     });
     //init();

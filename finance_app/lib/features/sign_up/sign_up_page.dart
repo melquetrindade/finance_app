@@ -49,6 +49,7 @@ class _SignUpState extends State<SignUp> {
       }
       if (signUpController.state is SignUpSuccessState) {
         Navigator.of(context).pop();
+        Navigator.pushReplacementNamed(context, NamedRoute.home);
       }
       if (signUpController.state is SignUpErrorState) {
         final error = signUpController.state as SignUpErrorState;

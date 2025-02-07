@@ -43,6 +43,7 @@ class _SignInState extends State<SignIn> {
       if (signInController.state is SignInSuccessState) {
         print("Entrar na tela de início");
         Navigator.of(context).pop();
+        Navigator.pushReplacementNamed(context, NamedRoute.home);
       }
       if (signInController.state is SignInErrorState) {
         final error = signInController.state as SignInErrorState;

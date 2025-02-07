@@ -1,4 +1,4 @@
-import 'package:finance_app/common/models/user_model.dart';
+/*import 'package:finance_app/common/models/user_model.dart';
 import 'package:finance_app/services/auth_service.dart';
 
 class MockAuthService implements AuthService {
@@ -34,4 +34,4 @@ class MockAuthService implements AuthService {
       throw "Não foi possível criar sua conta no momento. Tente mais tarde!";
     }
   }
-}
+}*/
