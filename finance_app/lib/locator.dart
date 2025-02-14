@@ -15,5 +15,5 @@ void setup() {
   locator.registerFactory<SignInController>(
       () => SignInController(service: locator.get<AuthService>()));
   locator.registerFactory<SignUpController>(
-      () => SignUpController(service: locator.get<AuthService>()));
+      () => SignUpController(service: locator.get<AuthService>(), secureStorage: SecureStorage()));
 }
